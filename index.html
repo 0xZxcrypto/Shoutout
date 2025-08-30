@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoutout Board PoC</title>
+  <style>
+    /* Reset dasar */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #4a90e2;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #e0eafc;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    .board {
+      background: white;
+      max-width: 600px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    form {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #4a90e2;
+      outline: none;
+      box-shadow: 0 0 8px rgba(74,144,226,0.3);
+    }
+
+    button {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #357ab8;
+    }
+
+    .shoutouts {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 1rem;
+    }
+
+    .shoutout {
+      background: #e8f0fe;
+      padding: 1rem;
+      border-radius: 10px;
+      word-wrap: break-word;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: 0.2s;
+    }
+
+    .shoutout:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #555;
+      background: #f0f2f5;
+    }
+
+    @media(max-width: 640px){
+      header h1 { font-size: 1.8rem; }
+      header p { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shoutout Board PoC</h1>
+    <p>Post short messages and see them live instantly</p>
+  </header>
+
+  <main>
+    <div class="board">
+      <form id="shoutoutForm">
+        <input type="text" id="messageInput" placeholder="Write your shoutout (max 200 chars)" maxlength="200" required>
+        <button type="submit">Post</button>
+      </form>
+
+      <div class="shoutouts" id="shoutoutsContainer">
+        <!-- Messages will appear here -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Shoutouts are for demo purposes only — PoC for Soundness vApp.
+  </footer>
+
+  <script>
+    const form = document.getElementById('shoutoutForm');
+    const input = document.getElementById('messageInput');
+    const container = document.getElementById('shoutoutsContainer');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = input.value.trim();
+      if(msg) {
+        const shoutDiv = document.createElement('div');
+        shoutDiv.className = 'shoutout';
+        shoutDiv.textContent = msg;
+        container.prepend(shoutDiv);
+        input.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
